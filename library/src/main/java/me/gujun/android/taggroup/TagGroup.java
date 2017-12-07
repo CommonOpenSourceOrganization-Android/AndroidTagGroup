@@ -68,71 +68,121 @@ public class TagGroup extends ViewGroup {
     private final float default_horizontal_padding;
     private final float default_vertical_padding;
 
-    /** Indicates whether this TagGroup is set up to APPEND mode or DISPLAY mode. Default is false. */
+    /**
+     * Indicates whether this TagGroup is set up to APPEND mode or DISPLAY mode. Default is false.
+     */
     private boolean isAppendMode;
 
-    /** The text to be displayed when the text of the INPUT tag is empty. */
+    /**
+     * The text to be displayed when the text of the INPUT tag is empty.
+     */
     private CharSequence inputHint;
 
-    /** The tag outline border color. */
+    /**
+     * The tag outline border color.
+     */
     private int borderColor;
 
-    /** The tag text color. */
+    /**
+     * The tag text color.
+     */
     private int textColor;
 
-    /** The tag background color. */
+    /**
+     * The tag background color.
+     */
     private int backgroundColor;
 
-    /** The dash outline border color. */
+    /**
+     * The dash outline border color.
+     */
     private int dashBorderColor;
 
-    /** The  input tag hint text color. */
+    /**
+     * The  input tag hint text color.
+     */
     private int inputHintColor;
 
-    /** The input tag type text color. */
+    /**
+     * The input tag type text color.
+     */
     private int inputTextColor;
 
-    /** The checked tag outline border color. */
+    /**
+     * The checked tag outline border color.
+     */
     private int checkedBorderColor;
 
-    /** The check text color */
+    /**
+     * The check text color
+     */
     private int checkedTextColor;
 
-    /** The checked marker color. */
+    /**
+     * The checked marker color.
+     */
     private int checkedMarkerColor;
 
-    /** The checked tag background color. */
+    /**
+     * The checked tag background color.
+     */
     private int checkedBackgroundColor;
 
-    /** The tag background color, when the tag is being pressed. */
+    /**
+     * The tag background color, when the tag is being pressed.
+     */
     private int pressedBackgroundColor;
 
-    /** The tag outline border stroke width, default is 0.5dp. */
+    /**
+     * The tag outline border stroke width, default is 0.5dp.
+     */
     private float borderStrokeWidth;
 
-    /** The tag text size, default is 13sp. */
+    /**
+     * The tag text size, default is 13sp.
+     */
     private float textSize;
 
-    /** The horizontal tag spacing, default is 8.0dp. */
+    /**
+     * The horizontal tag spacing, default is 8.0dp.
+     */
     private int horizontalSpacing;
 
-    /** The vertical tag spacing, default is 4.0dp. */
+    /**
+     * The vertical tag spacing, default is 4.0dp.
+     */
     private int verticalSpacing;
 
-    /** The horizontal tag padding, default is 12.0dp. */
+    /**
+     * The horizontal tag padding, default is 12.0dp.
+     */
     private int horizontalPadding;
 
-    /** The vertical tag padding, default is 3.0dp. */
+    /**
+     * The vertical tag padding, default is 3.0dp.
+     */
     private int verticalPadding;
 
-    /** Listener used to dispatch tag change event. */
+    /**
+     * Listener used to dispatch tag change event.
+     */
     private OnTagChangeListener mOnTagChangeListener;
 
-    /** Listener used to dispatch tag click event. */
+    /**
+     * Listener used to dispatch tag click event.
+     */
     private OnTagClickListener mOnTagClickListener;
 
-    /** Listener used to handle tag click event. */
+    /**
+     * Listener used to handle tag click event.
+     */
     private InternalTagClickListener mInternalTagClickListener = new InternalTagClickListener();
+
+    private int topRightCorner;
+    private int topLeftCorner;
+    private int bottomRightCorner;
+    private int bottomLeftCorner;
+    private int corner;
 
     public TagGroup(Context context) {
         this(context, null);
@@ -173,6 +223,17 @@ public class TagGroup extends ViewGroup {
             verticalSpacing = (int) a.getDimension(R.styleable.TagGroup_atg_verticalSpacing, default_vertical_spacing);
             horizontalPadding = (int) a.getDimension(R.styleable.TagGroup_atg_horizontalPadding, default_horizontal_padding);
             verticalPadding = (int) a.getDimension(R.styleable.TagGroup_atg_verticalPadding, default_vertical_padding);
+
+            topRightCorner = (int) a.getDimension(R.styleable.TagGroup_atg_topRightCorner, 0);
+            topLeftCorner = (int) a.getDimension(R.styleable.TagGroup_atg_topLeftCorner, 0);
+            bottomRightCorner = (int) a.getDimension(R.styleable.TagGroup_atg_bottomRightCorner, 0);
+            bottomLeftCorner = (int) a.getDimension(R.styleable.TagGroup_atg_bottomLeftCorner, 0);
+            corner = (int) a.getDimension(R.styleable.TagGroup_atg_corner, 0);
+            topRightCorner = (int) dp2px((float) topRightCorner);
+            topLeftCorner = (int) dp2px((float) topLeftCorner);
+            bottomRightCorner = (int) dp2px((float) bottomRightCorner);
+            bottomLeftCorner = (int) dp2px((float) bottomLeftCorner);
+            corner = (int) dp2px((float) corner);
         } finally {
             a.recycle();
         }
@@ -652,19 +713,29 @@ public class TagGroup extends ViewGroup {
         public static final int STATE_NORMAL = 1;
         public static final int STATE_INPUT = 2;
 
-        /** The offset to the text. */
+        /**
+         * The offset to the text.
+         */
         private static final int CHECKED_MARKER_OFFSET = 3;
 
-        /** The stroke width of the checked marker */
+        /**
+         * The stroke width of the checked marker
+         */
         private static final int CHECKED_MARKER_STROKE_WIDTH = 4;
 
-        /** The current state. */
+        /**
+         * The current state.
+         */
         private int mState;
 
-        /** Indicates the tag if checked. */
+        /**
+         * Indicates the tag if checked.
+         */
         private boolean isChecked = false;
 
-        /** Indicates the tag if pressed. */
+        /**
+         * Indicates the tag if pressed.
+         */
         private boolean isPressed = false;
 
         private Paint mBorderPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -673,28 +744,46 @@ public class TagGroup extends ViewGroup {
 
         private Paint mCheckedMarkerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        /** The rect for the tag's left corner drawing. */
+        /**
+         * The rect for the tag's left corner drawing.
+         */
         private RectF mLeftCornerRectF = new RectF();
+        private RectF mLeftCornerRectF2 = new RectF();
 
-        /** The rect for the tag's right corner drawing. */
+        /**
+         * The rect for the tag's right corner drawing.
+         */
         private RectF mRightCornerRectF = new RectF();
+        private RectF mRightCornerRectF2 = new RectF();
 
-        /** The rect for the tag's horizontal blank fill area. */
+        /**
+         * The rect for the tag's horizontal blank fill area.
+         */
         private RectF mHorizontalBlankFillRectF = new RectF();
 
-        /** The rect for the tag's vertical blank fill area. */
+        /**
+         * The rect for the tag's vertical blank fill area.
+         */
         private RectF mVerticalBlankFillRectF = new RectF();
 
-        /** The rect for the checked mark draw bound. */
+        /**
+         * The rect for the checked mark draw bound.
+         */
         private RectF mCheckedMarkerBound = new RectF();
 
-        /** Used to detect the touch event. */
+        /**
+         * Used to detect the touch event.
+         */
         private Rect mOutRect = new Rect();
 
-        /** The path for draw the tag's outline border. */
+        /**
+         * The path for draw the tag's outline border.
+         */
         private Path mBorderPath = new Path();
 
-        /** The path effect provide draw the dash border. */
+        /**
+         * The path effect provide draw the dash border.
+         */
         private PathEffect mPathEffect = new DashPathEffect(new float[]{10, 5}, 0);
 
         {
@@ -893,9 +982,9 @@ public class TagGroup extends ViewGroup {
         @Override
         protected void onDraw(Canvas canvas) {
             canvas.drawArc(mLeftCornerRectF, -180, 90, true, mBackgroundPaint);
-            canvas.drawArc(mLeftCornerRectF, -270, 90, true, mBackgroundPaint);
+            canvas.drawArc(mLeftCornerRectF2, -270, 90, true, mBackgroundPaint);
             canvas.drawArc(mRightCornerRectF, -90, 90, true, mBackgroundPaint);
-            canvas.drawArc(mRightCornerRectF, 0, 90, true, mBackgroundPaint);
+            canvas.drawArc(mRightCornerRectF2, 0, 90, true, mBackgroundPaint);
             canvas.drawRect(mHorizontalBlankFillRectF, mBackgroundPaint);
             canvas.drawRect(mVerticalBlankFillRectF, mBackgroundPaint);
 
@@ -920,32 +1009,40 @@ public class TagGroup extends ViewGroup {
             int right = (int) (left + w - borderStrokeWidth * 2);
             int bottom = (int) (top + h - borderStrokeWidth * 2);
 
-            int d = bottom - top;
+            int height = bottom - top;
+            //            int d = height;
 
-            mLeftCornerRectF.set(left, top, left + d, top + d);
-            mRightCornerRectF.set(right - d, top, right, top + d);
+            int topLeftD = topLeftCorner == 0 ? corner : topLeftCorner;
+            int bottomLeftD = bottomLeftCorner == 0 ? corner : bottomLeftCorner;
+            int topRightD = topRightCorner == 0 ? corner : topRightCorner;
+            int bottomRightD = bottomRightCorner == 0 ? corner : bottomRightCorner;
+
+            mLeftCornerRectF.set(left, top, left + topLeftD, top + topLeftD);
+            mLeftCornerRectF2.set(left, top + height - bottomLeftD, left + bottomLeftD, top + height);
+            mRightCornerRectF.set(right - topRightD, top, right, top + topRightD);
+            mRightCornerRectF2.set(right - bottomRightD, top + height - bottomRightD, right, top + height);
 
             mBorderPath.reset();
             mBorderPath.addArc(mLeftCornerRectF, -180, 90);
-            mBorderPath.addArc(mLeftCornerRectF, -270, 90);
+            mBorderPath.addArc(mLeftCornerRectF2, -270, 90);
             mBorderPath.addArc(mRightCornerRectF, -90, 90);
-            mBorderPath.addArc(mRightCornerRectF, 0, 90);
+            mBorderPath.addArc(mRightCornerRectF2, 0, 90);
 
-            int l = (int) (d / 2.0f);
-            mBorderPath.moveTo(left + l, top);
-            mBorderPath.lineTo(right - l, top);
+            //            int l = (int) (d / 2.0f);
+            mBorderPath.moveTo(left + topLeftD / 2.0f, top);
+            mBorderPath.lineTo(right - topRightD / 2.0f, top);
 
-            mBorderPath.moveTo(left + l, bottom);
-            mBorderPath.lineTo(right - l, bottom);
+            mBorderPath.moveTo(left + bottomLeftD / 2.0f, bottom);
+            mBorderPath.lineTo(right - bottomRightD / 2.0f, bottom);
 
-            mBorderPath.moveTo(left, top + l);
-            mBorderPath.lineTo(left, bottom - l);
+            mBorderPath.moveTo(left, top + topLeftD / 2.0f);
+            mBorderPath.lineTo(left, bottom - bottomLeftD / 2.0f);
 
-            mBorderPath.moveTo(right, top + l);
-            mBorderPath.lineTo(right, bottom - l);
+            mBorderPath.moveTo(right, top + topRightD / 2.0f);
+            mBorderPath.lineTo(right, bottom - bottomRightD / 2.0f);
 
-            mHorizontalBlankFillRectF.set(left, top + l, right, bottom - l);
-            mVerticalBlankFillRectF.set(left + l, top, right - l, bottom);
+            mHorizontalBlankFillRectF.set(left, top + topLeftD / 2.0f, right, bottom - bottomRightD / 2.0f);
+            mVerticalBlankFillRectF.set(left + topLeftD / 2.0f, top, right - topRightD / 2.0f, bottom);
 
             int m = (int) (h / 2.5f);
             h = bottom - top;
