@@ -1,26 +1,24 @@
-# AndroidTagGroup
+# `AndroidTagGroup`
 
+[![Release 1.4](https://img.shields.io/badge/Release-1.4.1-green.svg)](https://github.com/2dxgujun/AndroidTagGroup/releases)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.gujun.android.taggroup/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/me.gujun.android.taggroup/library)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidTagGroup-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1539)
 [![Build Status](https://travis-ci.org/2dxgujun/AndroidTagGroup.png?branch=master)](https://travis-ci.org/2dxgujun/AndroidTagGroup)
 
-The AndroidTagGroup is a layout for a set of tags.You can use it to group people, books or anything you want.
+The TagGroup is a special layout with a set of tags. You can use it to tag people, books or anything you want.
 
 Also you can contribute new idea to me.
-
 
 # Demo
 
 ### Screenshot
-![Demo screenshot](http://ww2.sinaimg.cn/large/bce2dea9gw1epouvl2mvuj20dw0ehmyb.jpg)
+![screenshot1](http://ww4.sinaimg.cn/large/bce2dea9jw1esbsby9v5fj20u00w8jxx.jpg)
 
-### Append Tag
-![Append mode](http://ww4.sinaimg.cn/large/bce2dea9gw1epouw5y9ijj20dw06dt8x.jpg)
+### Edit Tags
+![screenshot2](http://ww4.sinaimg.cn/large/bce2dea9jw1esbsbngv8fj20u005w75v.jpg)
+![screenshot3](http://ww4.sinaimg.cn/large/bce2dea9jw1esbsbmoagij20u005sabl.jpg)
 
-### Delete tag
-![Delete tag](http://ww3.sinaimg.cn/large/bce2dea9gw1epouweadrqj20dw05dglt.jpg)
-
-[Download Demo](https://github.com/2dxgujun/AndroidTagGroup/releases/download/v1.2/AndroidTagGroup-Demo-v1.2.apk)
+[Download Demo](https://github.com/2dxgujun/AndroidTagGroup/releases/download/v1.4/AndroidTagGroup-Demo-v1.4.apk)
 
 # Usage
 
@@ -29,7 +27,7 @@ Also you can contribute new idea to me.
 #### Gradle
 ```groovy
 dependencies {
-   compile 'me.gujun.android.taggroup:library:1.2@aar'
+   compile 'me.gujun.android.taggroup:library:1.4@aar'
 }
 ```
 
@@ -38,7 +36,7 @@ dependencies {
 <dependency>
     <groupId>me.gujun.android.taggroup</groupId>
     <artifactId>library</artifactId>
-    <version>1.2</version>
+    <version>1.4</version>
     <type>apklib</type>
 </dependency>
 ```
@@ -49,43 +47,29 @@ Use it in your own code:
 ```xml
 <me.gujun.android.taggroup.TagGroup
     android:id="@+id/tag_group"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    style="@style/TagGroup" />
 ```
 
 ```java
 TagGroup mTagGroup = (TagGroup) findViewById(R.id.tag_group);
 mTagGroup.setTags(new String[]{"Tag1", "Tag2", "Tag3"});
 ```
-
 Use `setTags(...)` to set the initial tags in the group.
 
+#### How to submit a new tag?
+
 To "submit" a new tag as user press "Enter" or tap the blank area of the tag group, also you can "submit" a new tag via `submitTag()`.
-To delete a tag as user press "Backspace" or double-tap the tag which you want to delete.
 
 **Note**: Google keyboard (a few soft keyboard not honour the key event) currently not supported "Enter" key to "submit" a new tag.
 
-I made some pre-design style. You can use them via `style` property.
+#### How to delete a tag?
 
-![Present color](http://ww4.sinaimg.cn/large/bce2dea9gw1epouwn8og4j20dw0a5aal.jpg)
+To delete a tag as user press "Backspace" key or double-tap the tag which you want to delete.
 
-Use the present style just like below:
+#### How to detect tag click event?
 
-```xml
-<me.gujun.android.taggroup.TagGroup
-    android:id="@+id/tag_group"
-    style="@style/TagGroup.Beauty_Red"/>
-```
+Implement a callback interface: `TagGroup.OnTagClickListener`, and set the listener via `setOnTagClickListener()`.
 
-In the above picture, the style is:
-
-`TagGroup`
-`TagGroup.Beauty_Red`
-`TagGroup.Holo_Dark`
-`TagGroup.Light_Blue`
-`TagGroup.Indigo`
-
-You can get more beautiful color from [Adobe Color CC](https://color.adobe.com), and you can also contribute your color style to AndroidTagGroup!
 
 # Build
 
@@ -101,20 +85,27 @@ There are several attributes you can set:
 
 ![Dimension illustrate](http://ww2.sinaimg.cn/large/bce2dea9gw1epov0i8x6kj20rk054q4g.jpg)
 
-|       attr        	|     default      |                         mean                          	 |
-|:--------------------- |:---------------- |:------------------------------------------------------- |
-| isAppendMode      	| false            | Determine the TagGroup mode, APPEND or single DISPLAY.  |
-| inputTagHint   	    | Add Tag/添加标签  | Hint of the INPUT state tag.                            |
-| brightColor	        | #49C120          | The bright color of the tag.                            |
-| dimColor          	| #AAAAAA          | The dim color of the tag.                           	 |
-| backgroundColor       | #FFFFFF          | The background color of the tag.                        |
-| pressedBackgroundColor| #EDEDED          | The background color of the tag when user press.        |
-| borderStrokeWidth     | 0.5dp            | The tag outline border stroke width.        	         |
-| textSize          	| 13sp             | The tag text size.                                  	 |
-| horizontalSpacing     | 8dp              | The horizontal tag spacing.(Mark1)                      |
-| verticalSpacing  	    | 4dp              | The vertical tag spacing.(Mark2)                      	 |
-| horizontalPadding	    | 12dp             | The horizontal tag padding.(Mark3)                      |
-| verticalPadding  	    | 3dp              | The vertical tag padding.(Mark4)                        |
+|           attr        	|     default      |                         mean                          	 |
+|:------------------------- |:---------------- |:------------------------------------------------------- |
+| atg_isAppendMode      	| false            | Determine the TagGroup mode, APPEND or single DISPLAY.  |
+| atg_inputHint   	        | Add Tag/添加标签  | The hint of the INPUT tag.                              |
+| atg_borderColor	        | #49C120          | The tag outline border color.                           |
+| atg_textColor          	| #49C120          | The tag text color.                           	         |
+| atg_backgroundColor       | #FFFFFF          | The tag background color.                               |
+| atg_dashBorderColor       | #AAAAAA          | The tag dash outline border color.                      |
+| atg_inputHintColor        | #80000000        | The input tag hint text color.                          |
+| atg_inputTextColor        | #DE000000        | The input tag type text color..                         |
+| atg_checkedBorderColor    | #49C120          | The checked tag outline border color.                   |
+| atg_checkedTextColor      | #FFFFFF          | The checked text color.                                 |
+| atg_checkedMarkerColor    | #FFFFFF          | The checked marker color.                               |
+| atg_checkedBackgroundColor| #49C120          | The checked tag background color.                       |
+| atg_pressedBackgroundColor| #EDEDED          | The tag background color when the tag is being pressed. |
+| atg_borderStrokeWidth     | 0.5dp            | The tag outline border stroke width.        	         |
+| atg_textSize          	| 13sp             | The tag text size.                                  	 |
+| atg_horizontalSpacing     | 8dp              | The horizontal tag spacing.(Mark1)                      |
+| atg_verticalSpacing  	    | 4dp              | The vertical tag spacing.(Mark2)                      	 |
+| atg_horizontalPadding	    | 12dp             | The horizontal tag padding.(Mark3)                      |
+| atg_verticalPadding  	    | 3dp              | The vertical tag padding.(Mark4)                        |
 
 # Developed By
 
