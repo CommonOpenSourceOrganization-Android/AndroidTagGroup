@@ -1,6 +1,21 @@
 # `AndroidTagGroup`
 
 ### <font color='#ff0000'>注：在原AndroidTagGroup项目基础上增加了功能：分别设置四个角的圆角大小，统一设置四个角的圆角大小。</font>
+代码示例：
+```
+<me.gujun.android.taggroup.TagGroup
+        android:id="@+id/tag_group_large"
+        style="@style/TagGroup.Large"
+        android:layout_marginTop="10dp"
+        app:atg_topLeftCorner="8dp"
+        app:atg_topRightCorner="8dp"/>
+        
+<me.gujun.android.taggroup.TagGroup
+        android:id="@+id/tag_group_beauty_inverse"
+        style="@style/TagGroup.Beauty_Red.Inverse"
+        android:layout_marginTop="5dp"
+        app:atg_corner="4dp"/>
+```
 
 ---------------------
 
