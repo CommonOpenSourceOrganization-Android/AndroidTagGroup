@@ -1,5 +1,9 @@
 # `AndroidTagGroup`
 
+### <font color='#ff0000'>注：在原AndroidTagGroup项目基础上增加了功能：分别设置四个角的圆角大小，统一设置四个角的圆角大小。</font>
+
+---------------------
+
 [![Release 1.4](https://img.shields.io/badge/Release-1.4.1-green.svg)](https://github.com/2dxgujun/AndroidTagGroup/releases)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/me.gujun.android.taggroup/library/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/me.gujun.android.taggroup/library)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidTagGroup-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/1539)
@@ -27,7 +31,7 @@ Also you can contribute new idea to me.
 #### Gradle
 ```groovy
 dependencies {
-   compile 'me.gujun.android.taggroup:library:1.4@aar'
+   compile 'com.github.CommonOpenSourceOrganization-Android:AndroidTagGroup:v2.0.2'
 }
 ```
 
