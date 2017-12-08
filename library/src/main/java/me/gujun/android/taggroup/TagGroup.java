@@ -447,6 +447,7 @@ public class TagGroup extends ViewGroup {
     }
 
     /**
+     * @param tagList 标签文字集合
      * @see #setTags(String...)
      */
     public void setTags(List<String> tagList) {
@@ -590,14 +591,16 @@ public class TagGroup extends ViewGroup {
         /**
          * Called when a tag has been appended to the group.
          *
-         * @param tag the appended tag.
+         * @param tagGroup 当前taggroup
+         * @param tag      the appended tag.
          */
         void onAppend(TagGroup tagGroup, String tag);
 
         /**
          * Called when a tag has been deleted from the the group.
          *
-         * @param tag the deleted tag.
+         * @param tagGroup 当前tagGroup
+         * @param tag      the deleted tag.
          */
         void onDelete(TagGroup tagGroup, String tag);
     }
