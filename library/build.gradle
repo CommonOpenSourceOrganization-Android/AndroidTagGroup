@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
+
 android {
     compileSdkVersion 25
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '25.0.2'
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 25
@@ -13,6 +14,7 @@ android {
     }
 
 }
+
 // Used to push in maven
 apply from: '../maven-push.gradle'
 dependencies {
